@@ -7,8 +7,8 @@ export default function ExplorePage() {
     { title: "Rooms & Suites", img: "/service1.jpg", desc: "Opulent spaces with city or garden views." },
     { title: "Spa & Wellness", img: "/service2.jpg", desc: "Holistic therapies and hydro experiences." },
     { title: "Infinity Pool", img: "/service3.jpg", desc: "Sun-kissed deck and twilight ambience." },
-    { title: "Fine Dining", img: "/service4.jpg", desc: "Global flavors curated by master chefs." },
-    { title: "Curated Activities", img: "/service5.jpg", desc: "Culture walks, mixology, and beyond." },
+    { title: "Fine Dining", img: "/service5.jpg", desc: "Global flavors curated by master chefs." },
+    { title: "Curated Activities", img: "/service4.jpg", desc: "Culture walks, mixology, and beyond." },
   ];
 
   return (
