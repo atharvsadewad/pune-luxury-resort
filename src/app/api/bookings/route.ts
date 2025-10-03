@@ -12,13 +12,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
+  const nights = Math.max(1, dayjs(checkOut).diff(dayjs(checkIn), "day"));
+  const base = roomType === "suite" ? 9000 : roomType === "villa" ? 15000 : 6000;
+  const price = nights * base;
+
+  if (!process.env.MONGODB_URI) {
+    return NextResponse.json({ id: "demo_order", amount: Math.round(price * 100), currency: "INR", bookingId: "demo_booking" });
+  }
+
   await connectToDatabase();
   const room = await Room.findOne({ type: roomType });
   if (!room) return NextResponse.json({ error: "Room not found" }, { status: 404 });
-  const nights = Math.max(1, dayjs(checkOut).diff(dayjs(checkIn), "day"));
-  const price = nights * room.pricePerNight;
+  const dbPrice = nights * room.pricePerNight;
 
-  const booking = await Booking.create({ name, email, phone, checkIn, checkOut, guests, roomType, price, status: "pending" });
+  const booking = await Booking.create({ name, email, phone, checkIn, checkOut, guests, roomType, price: dbPrice, status: "pending" });
 
   const key_id = process.env.RAZORPAY_KEY_ID as string;
   const key_secret = process.env.RAZORPAY_KEY_SECRET as string;
@@ -28,7 +35,7 @@ export async function POST(req: NextRequest) {
 
   const instance = new Razorpay({ key_id, key_secret });
   const order = await instance.orders.create({
-    amount: Math.round(price * 100),
+    amount: Math.round(dbPrice * 100),
     currency: "INR",
     receipt: booking._id.toString(),
   });

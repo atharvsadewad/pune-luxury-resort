@@ -13,6 +13,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ available: false, message: "Missing parameters" }, { status: 400 });
   }
 
+  if (!process.env.MONGODB_URI) {
+    const nights = Math.max(1, dayjs(checkOut).diff(dayjs(checkIn), "day"));
+    const base = roomType === "suite" ? 9000 : roomType === "villa" ? 15000 : 6000;
+    return NextResponse.json({ available: true, price: nights * base });
+  }
+
   await connectToDatabase();
   const room = await Room.findOne({ type: roomType });
   if (!room) {
