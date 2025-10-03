@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dayjs from "dayjs";
-import { connectToDatabase } from "@/src/lib/db";
-import { Room } from "@/src/models/Room";
+import { connectToDatabase } from "@/lib/db";
+import { Room } from "@/models/Room";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

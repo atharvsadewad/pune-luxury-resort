@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
-import { connectToDatabase } from "@/src/lib/db";
-import { Booking } from "@/src/models/Booking";
-import { Room } from "@/src/models/Room";
+import { connectToDatabase } from "@/lib/db";
+import { Booking } from "@/models/Booking";
+import { Room } from "@/models/Room";
 import dayjs from "dayjs";
 
 export async function POST(req: NextRequest) {

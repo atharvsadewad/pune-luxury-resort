@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/src/lib/db";
-import { Room } from "@/src/models/Room";
+import { connectToDatabase } from "@/lib/db";
+import { Room } from "@/models/Room";
 
 export async function GET() {
   await connectToDatabase();

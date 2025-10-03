@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase } from "@/src/lib/db";
-import { Booking } from "@/src/models/Booking";
+import { connectToDatabase } from "@/lib/db";
+import { Booking } from "@/models/Booking";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

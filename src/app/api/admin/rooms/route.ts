@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
-import { connectToDatabase } from "@/src/lib/db";
-import { Room } from "@/src/models/Room";
+import { connectToDatabase } from "@/lib/db";
+import { Room } from "@/models/Room";
 
 export async function GET() {
   await connectToDatabase();
