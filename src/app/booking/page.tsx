@@ -19,7 +19,7 @@ type BookingForm = z.infer<typeof BookingSchema>;
 export default function BookingPage() {
   const [availability, setAvailability] = useState<null | { available: boolean; price: number }>(null);
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, watch } = useForm<BookingForm>({ resolver: zodResolver(BookingSchema) });
+  const { register, handleSubmit, watch } = useForm<BookingForm>({ resolver: zodResolver<BookingForm>(BookingSchema) });
 
   async function checkAvailability() {
     setLoading(true);
