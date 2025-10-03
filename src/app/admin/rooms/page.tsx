@@ -36,7 +36,7 @@ export default function AdminRooms() {
         <div className="rounded-2xl bg-white p-6 ring-1 ring-black/5">
           <h2 className="font-semibold">All Rooms</h2>
           <div className="mt-4 grid gap-3">
-            {(data || []).map((r: any) => (
+            {(data || []).map((r: { _id: string; name: string; type: "deluxe" | "suite" | "villa"; pricePerNight: number; capacity: number }) => (
               <div key={r._id} className="rounded-lg border p-3">
                 <div className="font-medium">{r.name}</div>
                 <div className="text-sm text-[--color-navy]/70">{r.type} · ₹{r.pricePerNight}/night · {r.capacity} guests</div>

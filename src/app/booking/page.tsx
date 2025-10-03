@@ -19,12 +19,7 @@ type BookingForm = z.infer<typeof BookingSchema>;
 export default function BookingPage() {
   const [availability, setAvailability] = useState<null | { available: boolean; price: number }>(null);
   const [loading, setLoading] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<BookingForm>({ resolver: zodResolver(BookingSchema) });
+  const { register, handleSubmit, watch } = useForm<BookingForm>({ resolver: zodResolver(BookingSchema) });
 
   async function checkAvailability() {
     setLoading(true);
@@ -50,12 +45,12 @@ export default function BookingPage() {
     const order = await res.json();
     setLoading(false);
 
-    const rzp = new (window as any).Razorpay({
+    const rzp = new (window as Window & { Razorpay: new (options: unknown) => { open: () => void } }).Razorpay({
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       order_id: order.id,
       name: "Aurum Vista Pune",
       description: "Room Booking",
-      handler: async function (response: any) {
+      handler: async function (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) {
         await fetch("/api/razorpay/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

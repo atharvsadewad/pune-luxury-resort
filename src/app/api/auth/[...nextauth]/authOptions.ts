@@ -10,11 +10,11 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<{ id: string; name: string; email: string } | null> {
         const adminEmail = process.env.ADMIN_EMAIL || "";
         const adminPassword = process.env.ADMIN_PASSWORD || "";
         if (credentials?.email === adminEmail && credentials?.password === adminPassword) {
-          return { id: "admin", name: "Administrator", email: adminEmail } as any;
+          return { id: "admin", name: "Administrator", email: adminEmail };
         }
         return null;
       },
