@@ -1,0 +1,17 @@
+import mongoose from "mongoose";
+
+const globalForMongoose = global as unknown as { mongooseConn?: typeof mongoose };
+
+export async function connectToDatabase(): Promise<typeof mongoose> {
+  if (globalForMongoose.mongooseConn && mongoose.connection.readyState === 1) {
+    return globalForMongoose.mongooseConn;
+  }
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error("MONGODB_URI is not set");
+  }
+  const conn = await mongoose.connect(uri, { dbName: process.env.MONGODB_DB || "aurum_vista" });
+  globalForMongoose.mongooseConn = conn;
+  return conn;
+}
+
