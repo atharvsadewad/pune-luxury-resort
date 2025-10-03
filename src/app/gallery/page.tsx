@@ -8,7 +8,7 @@ export default function GalleryPage() {
     <main>
       <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <Image src="/gallery-hero.jpg" alt="Gallery" fill className="object-cover" />
+          <Image src="/gallery1.jpg" alt="Gallery" fill className="object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/40" />
         <h1 className="relative z-10 text-4xl sm:text-6xl font-semibold text-white">Gallery</h1>
@@ -32,4 +32,3 @@ export default function GalleryPage() {
     </main>
   );
 }
-
