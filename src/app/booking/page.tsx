@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const BookingSchema = z.object({
   checkIn: z.string().min(1),
   checkOut: z.string().min(1),
-  guests: z.number({ coerce: true }).min(1).max(6),
+  guests: z.coerce.number().min(1).max(6),
   roomType: z.string().min(1),
   name: z.string().min(2),
   email: z.string().email(),
