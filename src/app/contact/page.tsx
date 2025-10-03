@@ -1,8 +1,6 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useMemo } from "react";
-
-const GoogleMap = dynamic(() => import("google-map-react"), { ssr: false });
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 export default function ContactPage() {
   const center = useMemo(() => ({ lat: 18.5204, lng: 73.8567 }), []);
@@ -20,7 +18,9 @@ export default function ContactPage() {
           </div>
         </form>
         <div className="h-[360px] rounded-2xl overflow-hidden ring-1 ring-black/5">
-          <GoogleMap bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string }} defaultCenter={center} defaultZoom={12} />
+          <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string}>
+            <GoogleMap mapContainerStyle={{ width: "100%", height: "100%" }} center={center} zoom={12} />
+          </LoadScript>
         </div>
       </div>
       <div className="mt-8 text-sm text-[--color-navy]/80">
